@@ -6,7 +6,7 @@ model = YOLO('yolov8n.pt')
 # Training.
 results = model.train(
    #data='C:/Users/Utilisateur/Documents/GitHub/projet_M1/datasets/ia_yolo_detection/project2.v3i.yolov8/data.yaml',
-   data='dataset_poussin/data.yaml',
+   data='ia_yolo_detection/dataset_poussin/data.yaml',
    imgsz=640,
    epochs=5,
    batch=8,
