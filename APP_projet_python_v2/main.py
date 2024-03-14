@@ -18,8 +18,6 @@ class App(customtkinter.CTk):
     
     def __init__(self):
         super().__init__()
-        self.Home =  os.getcwd()
-        self.second_home = self.Home[:-1]
         self.real_home = home.replace('\\', '/')
         
         
