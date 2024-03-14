@@ -10,9 +10,11 @@ import time
 from lire_fichier import lire_fichier_txt
 from ecrire_fichier import ecrire_fichier_txt
 from sonde import sonde
+from update_image import update_image
 
 home= os.getcwd()
 instance_temp_sonde=sonde()
+instance_change_img=update_image()
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -261,6 +263,8 @@ class App(customtkinter.CTk):
 
         #détruit l'image enclot affiché
         self.enclot.destroy()
+
+        instance_change_img.change_image()
 
         #affiche la nouvelle image, pour l'actualiser
         script_dir = os.path.dirname(__file__)

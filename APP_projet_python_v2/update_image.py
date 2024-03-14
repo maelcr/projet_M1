@@ -16,7 +16,8 @@ class update_image():
         abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
         os.remove(abs_file_path) 
 
-        abs_file_path_2 = os.path.join(script_dir, 'images\\reserve_duck\\Image'+self.nb_image+'.jpg')
+        path='images\\reserve_duck\\Image'+str(self.nb_image)+'.jpg'
+        abs_file_path_2 = os.path.join(script_dir, path)
         shutil.copyfile(abs_file_path_2 , abs_file_path)
 
         self.nb_image+=1
