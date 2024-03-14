@@ -8,10 +8,7 @@ from PIL import ImageTk, Image
 import subprocess
 import time
 
-"""test = os.getcwd()
-
-os.chdir(os.path.dirname(test))
-"""
+home= os.getcwd()
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -23,7 +20,7 @@ class App(customtkinter.CTk):
         super().__init__()
         self.Home =  os.getcwd()
         self.second_home = self.Home[:-1]
-        self.real_home = "C:/APP_projet_python/"
+        self.real_home = home.replace('\\', '/')
         
         
 
@@ -40,10 +37,10 @@ class App(customtkinter.CTk):
 
         # ----- initialisation des variables de départ -----
         
-        self.degree_variable = tkinter.StringVar(value=self.lire_fichier_txt(self.real_home+"save/degree.txt"))
+        self.degree_variable = tkinter.StringVar(value=self.lire_fichier_txt("save/degree.txt"))
         self.detection_cam_variable = tkinter.StringVar(value= self.ping("google.fr"))
         self.etat_enclot_variable = tkinter.StringVar(value=self.check_etat_enclot())
-        self.mort_variable = tkinter.StringVar(value=self.lire_fichier_txt(self.real_home+"save/death_note.txt"))
+        self.mort_variable = tkinter.StringVar(value=self.lire_fichier_txt("save/death_note.txt"))
         self.dangerosite_degree = tkinter.StringVar(value=self.temperature_dangerosite())
         
 
@@ -93,19 +90,21 @@ class App(customtkinter.CTk):
         #chauffage présent ou non
         self.checkbox_chauffage_present = customtkinter.CTkCheckBox(self.tab_cam,text="chauffage present.",command=self.checkbox_chauffage_ecriture_present, variable=self.check_chauffage_var,onvalue="on",offvalue="off")
         self.checkbox_chauffage_present.pack(pady=5,padx=10)
-        self.checkbox_chauffage_apply(self.real_home+"save/chauffage_activation.txt")
+        self.checkbox_chauffage_apply("save/chauffage_activation.txt")
         
         #enclot ouvert ou non
         self.checkbox_enclot_ouvert = customtkinter.CTkCheckBox(self.tab_cam,text="enclot ouvert ou non",command=self.checkbox_enclot_ouvert_ecriture, variable=self.check_ouvert_var,onvalue="on",offvalue="off")
         self.checkbox_enclot_ouvert.pack(pady=5,padx=10)
-        self.checkbox_ouvert_apply(self.real_home+"save/enclot_ouvert.txt")
+        self.checkbox_ouvert_apply("save/enclot_ouvert.txt")
         
         #bouton vue
         self.bouton = customtkinter.CTkButton(self.tab_cam,text="vue",command=self.reponse_vue)
         self.bouton.pack(pady=15)
 
         #affichage de l'enclot
-        self.image_enclot1 = Image.open(self.real_home+'images/enclot.jpg')
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'images\\enclot.jpg')
+        self.image_enclot1 = Image.open(abs_file_path)
         self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
         self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2)
         self.enclot.pack(pady=10)
@@ -117,15 +116,17 @@ class App(customtkinter.CTk):
         #notif chauffage
         self.checkbox_chauffage = customtkinter.CTkCheckBox(self.tab_notif,text="chauffage",command=self.checkbox_chauffage_ecriture, variable=self.check_var,onvalue="on",offvalue="off")
         self.checkbox_chauffage.pack(pady=12,padx=10)
-        self.checkbox_apply(self.real_home+"save/sauveguarde_checkbox_chauffage.txt")
+        self.checkbox_apply("save/sauveguarde_checkbox_chauffage.txt")
 
         
 
         # ----- tab information -----
 
         #image isen
-        self.test8695 = Image.open(self.real_home+'images/isen.png')
-        self.image_isen = ImageTk.PhotoImage(self.test8695.resize((200,150)))
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'images/isen.png')
+        self.logo_isen = Image.open(abs_file_path)
+        self.image_isen = ImageTk.PhotoImage(self.logo_isen.resize((200,150)))
         self.le_label = customtkinter.CTkLabel(self.tab_info, text="", image=self.image_isen)
         self.le_label.pack(pady=10)
 
@@ -150,7 +151,7 @@ class App(customtkinter.CTk):
         self.after(1000, self.update_label)
 
     def test_check_degree(self,degree1,degree2):
-        value_degree = self.lire_fichier_txt(self.real_home+"save/degree.txt")
+        value_degree = self.lire_fichier_txt("save/degree.txt")
         if (value_degree <= degree1):
             return "temperature trop basse"
         elif (value_degree >= degree2):
@@ -160,8 +161,8 @@ class App(customtkinter.CTk):
 
     def temperature_dangerosite(self):
         
-            value_chauffage = self.lire_fichier_txt(self.real_home+"save/chauffage_activation.txt")
-            value_ouvert = self.lire_fichier_txt(self.real_home+"save/enclot_ouvert.txt")
+            value_chauffage = self.lire_fichier_txt("save/chauffage_activation.txt")
+            value_ouvert = self.lire_fichier_txt("save/enclot_ouvert.txt")
             if (value_chauffage=="0" and value_ouvert=="0"):
                 value_final = self.test_check_degree("20","30")
             elif (value_chauffage=="1" and value_ouvert=="0"):
@@ -177,25 +178,25 @@ class App(customtkinter.CTk):
 
         print("checkbox toggled, current value:", self.check_var.get()) 
         if (self.check_var.get() == "on"):
-            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","1")
+            self.ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","1")
         elif (self.check_var.get() == "off"):
-            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","0")
+            self.ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","0")
 
     def checkbox_chauffage_ecriture_present(self):
 
         print("checkbox toggled, current value:", self.check_chauffage_var.get()) 
         if (self.check_chauffage_var.get() == "on"):
-            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","1")
+            self.ecrire_fichier_txt("save/chauffage_activation.txt","1")
         elif (self.check_chauffage_var.get() == "off"):
-            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","0")
+            self.ecrire_fichier_txt("save/chauffage_activation.txt","0")
 
     def checkbox_enclot_ouvert_ecriture(self):
 
         print("checkbox toggled, current value:", self.check_ouvert_var.get()) 
         if (self.check_ouvert_var.get() == "on"):
-            self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","1")
+            self.ecrire_fichier_txt("save/enclot_ouvert.txt","1")
         elif (self.check_ouvert_var.get() == "off"):
-            self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","0")
+            self.ecrire_fichier_txt("save/enclot_ouvert.txt","0")
     
 
 
@@ -227,7 +228,7 @@ class App(customtkinter.CTk):
 
         #degree_enclot
         # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
-        i = self.lire_fichier_txt(self.real_home+"save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt
+        i = self.lire_fichier_txt("save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt
         self.degree_variable.set(i) #va actualiser la variable degree_variable, qui va servir d'affichage
 
         #connection cam
@@ -250,13 +251,15 @@ class App(customtkinter.CTk):
         #va apeller le programme lire_fichier_txt() pour lire ce que contient death_note,
         #ce fichier stoque le nombre de mort détecté par l'IA.
         #il va ensuite actualiser la variable pour l'affichage en continue
-        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt") )
+        self.mort_variable.set(self.lire_fichier_txt("save/death_note.txt") )
 
         #détruit l'image enclot affiché
         self.enclot.destroy()
 
         #affiche la nouvelle image, pour l'actualiser
-        self.image_enclot1 = Image.open(self.real_home+'images/duck.jpg') #ouvre l'image et le stoque dans image_enclot1
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
+        self.image_enclot1 = Image.open(abs_file_path) #ouvre l'image et le stoque dans image_enclot1
         self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #change la taille de l'image et le stoque dans image_enclot2
         self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
         self.enclot.pack(pady=10) #affiche l'image
@@ -272,7 +275,7 @@ class App(customtkinter.CTk):
     #si 1, il retourneras "morts détecté"
     #si 2, il retourneras "anomalie détecté"
     def check_etat_enclot(self):
-        etat = self.lire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt") #lis le fichier et sauveguarde la valeur
+        etat = self.lire_fichier_txt("save/etat_de_lenclot.txt") #lis le fichier et sauveguarde la valeur
         if (etat == "0"):#si la valeur est "0"
             resultat = "rien à signaler"
         elif (etat == "1"): #si la valeur est "1"
@@ -284,31 +287,29 @@ class App(customtkinter.CTk):
     #programme apellé par un bouton, va réinitialiser les fichiers etat_de_lenclot.txt et death_note.txt en "O" et 
     #réinitialiser les variables etat_enclot_variable et mort_variable
     def reponse_vue(self):
-        self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans etat_de_lenclot.txt 
+        self.ecrire_fichier_txt("save/etat_de_lenclot.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans etat_de_lenclot.txt 
         self.etat_enclot_variable.set(self.check_etat_enclot()) #réinitialise la variable avec la nouvelle valeur
-        self.ecrire_fichier_txt(self.real_home+"save/death_note.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans death_note.txt 
-        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt")) #réinitialise la variable avec la nouvelle valeur
+        self.ecrire_fichier_txt("save/death_note.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans death_note.txt 
+        self.mort_variable.set(self.lire_fichier_txt("save/death_note.txt")) #réinitialise la variable avec la nouvelle valeur
 
     #lire le fichié spécifiée
-    
     def lire_fichier_txt (self,file_name):
-        script_dir = os.path.dirname(__file__)  # Get the directory of the current script
-        save_file_path = os.path.join(script_dir, 'save', file_name)  # Construct the file path
-        with open(save_file_path, 'r') as file:
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, file_name)
+        with open(abs_file_path, 'r') as file:
             content = file.read()
         return content
     
     #écrire le fichier spécifié avec le message en str
     def ecrire_fichier_txt (self,file_name,message):
-        script_dir = os.path.dirname(__file__)  # Get the directory of the current script
-        save_file_path = os.path.join(script_dir, 'save', file_name)  # Construct the file path
-        with open(save_file_path, 'w') as file:
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, file_name)
+        with open(abs_file_path, 'w') as file:
             content = file.write(message)
         return content
     
     
     def ping(self,host):
-        #by Ratado
         param = '-n' if platform.system().lower()=='windows' else '-c'
 
         command = ['ping', param, '1', host]

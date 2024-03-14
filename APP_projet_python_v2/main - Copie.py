@@ -25,7 +25,7 @@ class App(customtkinter.CTk):
         super().__init__()
         self.Home =  os.getcwd()
         self.second_home = self.Home[:-1]
-        self.real_home = home.replace("\\", "/")
+        self.real_home = home.replace('\\', '/')
         
         
 
@@ -156,7 +156,7 @@ class App(customtkinter.CTk):
         self.after(1000, self.update_label)
 
     def test_check_degree(self,degree1,degree2):
-        value_degree = self.lire_fichier_txt(self.real_home+"save/degree.txt")
+        value_degree = self.lire_fichier_txt("save/degree.txt")
         if (value_degree <= degree1):
             return "temperature trop basse"
         elif (value_degree >= degree2):
@@ -183,17 +183,17 @@ class App(customtkinter.CTk):
 
         print("checkbox toggled, current value:", self.check_var.get()) 
         if (self.check_var.get() == "on"):
-            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","1")
+            self.ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","1")
         elif (self.check_var.get() == "off"):
-            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","0")
+            self.ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","0")
 
     def checkbox_chauffage_ecriture_present(self):
 
         print("checkbox toggled, current value:", self.check_chauffage_var.get()) 
         if (self.check_chauffage_var.get() == "on"):
-            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","1")
+            self.ecrire_fichier_txt("save/chauffage_activation.txt","1")
         elif (self.check_chauffage_var.get() == "off"):
-            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","0")
+            self.ecrire_fichier_txt("save/chauffage_activation.txt","0")
 
     def checkbox_enclot_ouvert_ecriture(self):
 
@@ -284,10 +284,10 @@ class App(customtkinter.CTk):
     #réinitialise dans le fichier l'état de l'enclot, et affiche dans l'application "rien à signaler"
     #Rajouter le fait de mettre mort detecter à coter à 0
     def reponse_vue(self):
-        self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0")
+        self.ecrire_fichier_txt("save/etat_de_lenclot.txt","0")
         self.etat_enclot_variable.set(self.check_etat_enclot())
-        self.ecrire_fichier_txt(self.real_home+"save/death_note.txt","0")
-        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt"))
+        self.ecrire_fichier_txt("save/death_note.txt","0")
+        self.mort_variable.set(self.lire_fichier_txt("save/death_note.txt"))
 
     #lire le fichié spécifiée
     def lire_fichier_txt (self,file_name):
