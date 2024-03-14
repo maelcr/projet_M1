@@ -276,11 +276,10 @@ class App(customtkinter.CTk):
     #réinitialise dans le fichier l'état de l'enclot, et affiche dans l'application "rien à signaler"
     #Rajouter le fait de mettre mort detecter à coter à 0
     def reponse_vue(self):
-        if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"):
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")
-            self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0")
-            self.etat_enclot_variable.set(self.check_etat_enclot())
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","0")
+        self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0")
+        self.etat_enclot_variable.set(self.check_etat_enclot())
+        self.ecrire_fichier_txt(self.real_home+"save/death_note.txt","0")
+        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt"))
 
     #lire le fichié spécifiée
     def lire_fichier_txt (self,file_name):
