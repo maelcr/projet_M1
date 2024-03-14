@@ -222,66 +222,75 @@ class App(customtkinter.CTk):
 
     
     #permet de réinitialiser les variables affiché
-    #je n'aie pas réhussit à le faire en temps réel
+    #et d'apeller l'IA et d'autres programmes
     def reinit_variable(self):
 
         #degree_enclot
-        i = self.lire_fichier_txt(self.real_home+"save/degree.txt") + " degrée"
-        self.degree_variable.set(i)
+        # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
+        i = self.lire_fichier_txt(self.real_home+"save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt
+        self.degree_variable.set(i) #va actualiser la variable degree_variable, qui va servir d'affichage
 
         #connection cam
-        j = self.ping("google.fr")
-        self.detection_cam_variable.set(j)
+        # va pinger l'adresse (par exemple google.fr) et reguarde si il y as un retour de ping, si oui alors la ou amène l'adresse est connecté
+        #si il ne reçoit pas de retour de ping, alors il n'y as pas de connection.
+        j = self.ping("google.fr") # apelle le programme ping() qui envoit le ping à l'adresse et enregistre la réponse
+        self.detection_cam_variable.set(j) #va actualiser la variable detection_cam_variable, servant pour l'affichage
 
         #etat enclot
+        #va apeller le programme check_etat_enclot() et changer la variable etat_enclot_variable pour l'affichage.
+        #se référer a la description du programme apellé pour plus de détail
         self.etat_enclot_variable.set(self.check_etat_enclot())
 
+        #dangerosite temperature
+        #va apeller le programme temperature_dangerosite() et changer la variable dangerosite_degree pour l'affichage, 
+        #se référer a la description du programme apellé pour plus de détail
         self.dangerosite_degree.set(self.temperature_dangerosite())
 
-        mort = self.lire_fichier_txt(self.real_home+"save/death_note.txt") 
-        self.mort_variable.set(mort)
-    
+        #affichage nb morts détecté
+        #va apeller le programme lire_fichier_txt() pour lire ce que contient death_note,
+        #ce fichier stoque le nombre de mort détecté par l'IA.
+        #il va ensuite actualiser la variable pour l'affichage en continue
+        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt") )
+
+        #détruit l'image enclot affiché
         self.enclot.destroy()
 
-        self.image_enclot1 = Image.open(self.real_home+'images/duck.jpg')
-        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
-        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2)
-        self.enclot.pack(pady=10)
+        #affiche la nouvelle image, pour l'actualiser
+        self.image_enclot1 = Image.open(self.real_home+'images/duck.jpg') #ouvre l'image et le stoque dans image_enclot1
+        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #change la taille de l'image et le stoque dans image_enclot2
+        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
+        self.enclot.pack(pady=10) #affiche l'image
 
             
 
         
     
 
-    #lis le fichier etat_de_lenclot.txt et affiche l'état de l'enclot
+    #lis le fichier etat_de_lenclot.txt et retourne l'état de l'enclot
+    #l'état de l'enclot varie selon le chiffre retrouvé dans le fichier.
+    #si 0, le programme retourneras "rien à signaler"
+    #si 1, il retourneras "morts détecté"
+    #si 2, il retourneras "anomalie détecté"
     def check_etat_enclot(self):
-        
-        #etat enclot
-        etat = self.lire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt")
-        if (etat == "0"):
+        etat = self.lire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt") #lis le fichier et sauveguarde la valeur
+        if (etat == "0"):#si la valeur est "0"
             resultat = "rien à signaler"
-        elif (etat == "1"):
+        elif (etat == "1"): #si la valeur est "1"
             resultat = "morts détecté"
-
-        elif (etat ==  "2"):
+        elif (etat ==  "2"): #si la valeur est "2"
             resultat = "anomalie détecté"
-        
-        #elif (self.lire_fichier_txt(self.real_home+"semaphore.txt") == "1"):
-        #    resultat = "semaphore utilisé"    
-            
-        
-            
-        return resultat
+        return resultat #donner le résultat
     
-    #réinitialise dans le fichier l'état de l'enclot, et affiche dans l'application "rien à signaler"
-    #Rajouter le fait de mettre mort detecter à coter à 0
+    #programme apellé par un bouton, va réinitialiser les fichiers etat_de_lenclot.txt et death_note.txt en "O" et 
+    #réinitialiser les variables etat_enclot_variable et mort_variable
     def reponse_vue(self):
-        self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0")
-        self.etat_enclot_variable.set(self.check_etat_enclot())
-        self.ecrire_fichier_txt(self.real_home+"save/death_note.txt","0")
-        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt"))
+        self.ecrire_fichier_txt(self.real_home+"save/etat_de_lenclot.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans etat_de_lenclot.txt 
+        self.etat_enclot_variable.set(self.check_etat_enclot()) #réinitialise la variable avec la nouvelle valeur
+        self.ecrire_fichier_txt(self.real_home+"save/death_note.txt","0") #apelle la fonction ecrire_fichier_txt() pour changer en 0 la valeurs stoqué dans death_note.txt 
+        self.mort_variable.set(self.lire_fichier_txt(self.real_home+"save/death_note.txt")) #réinitialise la variable avec la nouvelle valeur
 
     #lire le fichié spécifiée
+    
     def lire_fichier_txt (self,file_name):
         script_dir = os.path.dirname(__file__)  # Get the directory of the current script
         save_file_path = os.path.join(script_dir, 'save', file_name)  # Construct the file path
