@@ -9,9 +9,10 @@ import subprocess
 import time
 from lire_fichier import lire_fichier_txt
 from ecrire_fichier import ecrire_fichier_txt
-from sonde import tempo_change_save
+from sonde import sonde
 
 home= os.getcwd()
+instance_temp_sonde=sonde()
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -227,7 +228,7 @@ class App(customtkinter.CTk):
     #et d'apeller l'IA et d'autres programmes
     def reinit_variable(self):
 
-        tempo_change_save()
+        instance_temp_sonde.tempo_change_save()
         #degree_enclot
         # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
         i = lire_fichier_txt("save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt
