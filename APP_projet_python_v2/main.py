@@ -147,11 +147,14 @@ class App(customtkinter.CTk):
     #Fonction permettant de rafraichir l'affichage et d'apeller d'autres fonctions toutes les n temps.
     #elle rafraichit aussi l'heure, juste une indication si l'aplication à freeze ou non.
     def update_label(self):
-        now = time.strftime("%H:%M:%S") 
-        self.label.configure(text=now)
-        self.reinit_variable()
-        self.after(1000, self.update_label)
+        now = time.strftime("%H:%M:%S") #récupère l'heure actuelle
+        self.label.configure(text=now) #actualise la valeur qui stoque l'heure
+        self.reinit_variable() #apelle reinit_variable
+        self.after(1000, self.update_label) #rapelle la fonction toute les n fonctions
 
+    #va afficher si la température dans l'enclot est trop élevé ou nom, par raport aux paramètres.
+    #les paramètres minimum sont degree1 et maximum sont degree2
+    #
     def test_check_degree(self,degree1,degree2):
         value_degree = lire_fichier_txt("save/degree.txt")
         if (value_degree <= degree1):
