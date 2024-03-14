@@ -142,12 +142,12 @@ class App(customtkinter.CTk):
         
 
         
-        
+    #Fonction permettant de rafraichir l'affichage et d'apeller d'autres fonctions toutes les n temps.
+    #elle rafraichit aussi l'heure, juste une indication si l'aplication à freeze ou non.
     def update_label(self):
         now = time.strftime("%H:%M:%S")
         self.label.configure(text=now)
         self.reinit_variable()
-        
         self.after(1000, self.update_label)
 
     def test_check_degree(self,degree1,degree2):
