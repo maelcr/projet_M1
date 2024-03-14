@@ -14,6 +14,6 @@ class sonde():
             self.temperature=30+round(random.uniform(0, 1),2)
         else:
             self.temperature=30-round(random.uniform(0, 1),2)
-        ecrire_fichier_txt("save/degree", str(self.temperature))
+        ecrire_fichier_txt("save/degree.txt", str(self.temperature))
 
     
