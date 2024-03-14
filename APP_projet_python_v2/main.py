@@ -8,9 +8,10 @@ from PIL import ImageTk, Image
 import subprocess
 import time
 
-test = os.getcwd()
+"""test = os.getcwd()
 
 os.chdir(os.path.dirname(test))
+"""
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -173,34 +174,28 @@ class App(customtkinter.CTk):
 
     #détecte si le ckeckbox à été touché et lis sa value, puis enregistre le changement, je ne peut pas plus l'optimiser sinon beug
     def checkbox_chauffage_ecriture(self):
-        if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"): #semaphore, pour éviter que plusieurs programmes utilisent le même dossier en même temps
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")    #et éviter les crash
-            print("checkbox toggled, current value:", self.check_var.get()) 
-            if (self.check_var.get() == "on"):
-                self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","1")
-            elif (self.check_var.get() == "off"):
-                self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","0")
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","0")
+
+        print("checkbox toggled, current value:", self.check_var.get()) 
+        if (self.check_var.get() == "on"):
+            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","1")
+        elif (self.check_var.get() == "off"):
+            self.ecrire_fichier_txt(self.real_home+"save/sauveguarde_checkbox_chauffage.txt","0")
 
     def checkbox_chauffage_ecriture_present(self):
-        if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"): #semaphore, pour éviter que plusieurs programmes utilisent le même dossier en même temps
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")    #et éviter les crash
-            print("checkbox toggled, current value:", self.check_chauffage_var.get()) 
-            if (self.check_chauffage_var.get() == "on"):
-                self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","1")
-            elif (self.check_chauffage_var.get() == "off"):
-                self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","0")
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","0")
+
+        print("checkbox toggled, current value:", self.check_chauffage_var.get()) 
+        if (self.check_chauffage_var.get() == "on"):
+            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","1")
+        elif (self.check_chauffage_var.get() == "off"):
+            self.ecrire_fichier_txt(self.real_home+"save/chauffage_activation.txt","0")
 
     def checkbox_enclot_ouvert_ecriture(self):
-        if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"): #semaphore, pour éviter que plusieurs programmes utilisent le même dossier en même temps
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")    #et éviter les crash
-            print("checkbox toggled, current value:", self.check_ouvert_var.get()) 
-            if (self.check_ouvert_var.get() == "on"):
-                self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","1")
-            elif (self.check_ouvert_var.get() == "off"):
-                self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","0")
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","0")
+
+        print("checkbox toggled, current value:", self.check_ouvert_var.get()) 
+        if (self.check_ouvert_var.get() == "on"):
+            self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","1")
+        elif (self.check_ouvert_var.get() == "off"):
+            self.ecrire_fichier_txt(self.real_home+"save/enclot_ouvert.txt","0")
     
 
 
@@ -229,35 +224,29 @@ class App(customtkinter.CTk):
     #permet de réinitialiser les variables affiché
     #je n'aie pas réhussit à le faire en temps réel
     def reinit_variable(self):
-        if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"):
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")
-            #degree_enclot
-            i = self.lire_fichier_txt(self.real_home+"save/degree.txt") + " degrée"
-            self.degree_variable.set(i)
 
-            #connection cam
-            j = self.ping("google.fr")
-            self.detection_cam_variable.set(j)
+        #degree_enclot
+        i = self.lire_fichier_txt(self.real_home+"save/degree.txt") + " degrée"
+        self.degree_variable.set(i)
 
-            #etat enclot
-            self.etat_enclot_variable.set(self.check_etat_enclot())
+        #connection cam
+        j = self.ping("google.fr")
+        self.detection_cam_variable.set(j)
 
-            
+        #etat enclot
+        self.etat_enclot_variable.set(self.check_etat_enclot())
 
-            self.dangerosite_degree.set(self.temperature_dangerosite())
+        self.dangerosite_degree.set(self.temperature_dangerosite())
 
-            mort = self.lire_fichier_txt(self.real_home+"save/death_note.txt") 
-            self.mort_variable.set(mort)
+        mort = self.lire_fichier_txt(self.real_home+"save/death_note.txt") 
+        self.mort_variable.set(mort)
+    
+        self.enclot.destroy()
 
-            
-       
-            self.enclot.destroy()
-
-            self.image_enclot1 = Image.open(self.real_home+'images/duck.jpg')
-            self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
-            self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2)
-            self.enclot.pack(pady=10)
-            self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","0")
+        self.image_enclot1 = Image.open(self.real_home+'images/duck.jpg')
+        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
+        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2)
+        self.enclot.pack(pady=10)
 
             
 
@@ -285,6 +274,7 @@ class App(customtkinter.CTk):
         return resultat
     
     #réinitialise dans le fichier l'état de l'enclot, et affiche dans l'application "rien à signaler"
+    #Rajouter le fait de mettre mort detecter à coter à 0
     def reponse_vue(self):
         if (self.lire_fichier_txt(self.real_home+"save/semaphore.txt") == "0"):
             self.ecrire_fichier_txt(self.real_home+"save/semaphore.txt","1")
