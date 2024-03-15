@@ -30,7 +30,7 @@ class App(customtkinter.CTk):
 
         #gérer la fenêtre
         self.title("Projet S8")
-        self.geometry("400x650")
+        self.geometry("500x750")
         self.check_var = tkinter.StringVar(value="on")
         self.check_chauffage_var = tkinter.StringVar(value="on")
         self.check_ouvert_var = tkinter.StringVar(value="on")
