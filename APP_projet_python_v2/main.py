@@ -169,18 +169,21 @@ class App(customtkinter.CTk):
         self.reinit_variable() #apelle reinit_variable
         self.after(1000, self.update_label) #rapelle la fonction toute les n fonctions
 
-    #va afficher si la température dans l'enclot est trop élevé ou nom, par raport aux paramètres.
+    #va détecter et retourner le résultat d'une comparaison de température, par raport aux paramètres  donnée à l'appel de la fonction
     #les paramètres minimum sont degree1 et maximum sont degree2
-    #
     def test_check_degree(self,degree1,degree2):
-        value_degree = lire_fichier_txt("save/degree.txt")
-        if (value_degree <= degree1):
-            return "temperature trop basse"
-        elif (value_degree >= degree2):
-            return "temperature trop haute"
-        else:
-            return "bonne temperature"
+        value_degree = lire_fichier_txt("save/degree.txt")#lis le contenus de degree.txt qui contient la température de l'enclot
+        if (value_degree <= degree1): #si la température est plus basse que degree1, alors
+            return "temperature trop basse" #retourne en résultat "temperature trop basse"
+        elif (value_degree >= degree2): #si la température est plus haute que degree2, alors
+            return "temperature trop haute" #retourne en résultat "temperature trop haute"
+        else: #si température est entre degree1 et degree 2, alors
+            return "bonne temperature" #retourne "bonne temperature"
 
+
+    #va apeller 
+        
+        
     def temperature_dangerosite(self):
         
             value_chauffage = lire_fichier_txt("save/chauffage_activation.txt")
@@ -281,7 +284,7 @@ class App(customtkinter.CTk):
 
         instance_change_img.change_image()
 
-        self.change_last_image()
+        self.change_dernier_image()
 
         #affiche la nouvelle image, pour l'actualiser
         script_dir = os.path.dirname(__file__)
@@ -293,7 +296,7 @@ class App(customtkinter.CTk):
 
             
 
-    def change_last_image (self):
+    def change_dernier_image (self):
         self.enclot_RGB.destroy()
         self.enclot_thermique.destroy()
 
