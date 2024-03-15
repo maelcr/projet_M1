@@ -9,7 +9,7 @@ class IA_detect_poussin():
 
     def __init__(self):
         self.HOME = os.getcwd()
-        self.model=YOLO(f'{HOME}/../yolov8n.pt')
+        self.model=YOLO(f'{self.HOME}/../yolov8n.pt')
     
     def predict_image(self, file_name):
         script_dir = os.path.dirname(__file__)

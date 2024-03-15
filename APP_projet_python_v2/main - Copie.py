@@ -7,13 +7,16 @@ import subprocess
 from PIL import ImageTk, Image  
 import subprocess
 import time
+from IA_detect_poussin import IA_detect_poussin
 
 """test = os.getcwd()
 
 os.chdir(os.path.dirname(test))
 """
 home= os.getcwd()
+instance_ia=IA_detect_poussin()
 
+instance_ia.predict_image('images\\poussin1.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -143,6 +146,7 @@ class App(customtkinter.CTk):
         self.textbox.pack(pady=30, padx=20)
 
         
+
         self.update_label()
         
 
