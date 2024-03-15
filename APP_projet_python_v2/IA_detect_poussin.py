@@ -9,6 +9,15 @@ class IA_detect_poussin():
 
     def __init__(self):
         self.HOME = os.getcwd()
+        #mettre vrais chemins
+        #from ultralytics import YOLO
+
+        # Load a model
+        #model = YOLO('yolov8n.pt')  # load an official model
+        #model = YOLO('path/to/best.pt')  # load a custom trained model
+
+        # Export the model
+        #model.export(format='onnx')
         self.model=YOLO(f'{self.HOME}/../yolov8n.pt')
     
     def predict_image(self, file_name):
