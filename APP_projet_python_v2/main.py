@@ -130,7 +130,7 @@ class App(customtkinter.CTk):
         self.enclot_RGB.pack(pady=10)
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images_save\\enclot_rgb.jpg')
+        abs_file_path = os.path.join(script_dir, 'images_save\\enclot_therm.jpg')
         self.image_thermique1 = Image.open(abs_file_path)
         self.image_thermique2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_enclot2)
