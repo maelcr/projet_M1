@@ -122,6 +122,21 @@ class App(customtkinter.CTk):
         self.checkbox_chauffage.pack(pady=12,padx=10)
         self.checkbox_apply("save/sauveguarde_checkbox_chauffage.txt")
 
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'images_save\\enclot.jpg')
+        self.image_derniere_RGB1 = Image.open(abs_file_path)
+        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
+        self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_enclot2)
+        self.enclot_RGB.pack(pady=10)
+
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'images_save\\enclot_rgb.jpg')
+        self.image_thermique1 = Image.open(abs_file_path)
+        self.image_thermique2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
+        self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_enclot2)
+        self.enclot_thermique.pack(pady=10)
+
+
         
 
         # ----- tab information -----
