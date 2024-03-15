@@ -11,10 +11,14 @@ from lire_fichier import lire_fichier_txt
 from ecrire_fichier import ecrire_fichier_txt
 from sonde import sonde
 from update_image import update_image
+from IA_detect_poussin import IA_detect_poussin
 
 home= os.getcwd()
 instance_temp_sonde=sonde()
 instance_change_img=update_image()
+instance_ia=IA_detect_poussin()
+
+instance_ia.predict_image('poussin1.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -284,7 +288,11 @@ class App(customtkinter.CTk):
 
         instance_change_img.change_image()
 
-        self.change_dernier_image()
+        if(int(self.mort_variable.get())>0):
+            self.change_dernier_image()
+        else:
+            self.enclot_RGB.destroy()
+            self.enclot_thermique.destroy()
 
         #affiche la nouvelle image, pour l'actualiser
         script_dir = os.path.dirname(__file__)
@@ -301,14 +309,14 @@ class App(customtkinter.CTk):
         self.enclot_thermique.destroy()
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path1 = os.path.join(script_dir, 'img_save\\enclot.jpg')
+        abs_file_path1 = os.path.join(script_dir, 'images\\poussin1.jpg')
         self.image_derniere_RGB1 = Image.open(abs_file_path1)
         self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))
         self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
         self.enclot_RGB.pack(pady=10)
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')
+        abs_file_path2 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
         self.image_thermique1 = Image.open(abs_file_path2)
         self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
