@@ -123,17 +123,17 @@ class App(customtkinter.CTk):
         self.checkbox_apply("save/sauveguarde_checkbox_chauffage.txt")
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images_save\\enclot.jpg')
-        self.image_derniere_RGB1 = Image.open(abs_file_path)
-        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
-        self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_enclot2)
+        abs_file_path1 = os.path.join(script_dir, 'img_save\\enclot.jpg')
+        self.image_derniere_RGB1 = Image.open(abs_file_path1)
+        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))
+        self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
         self.enclot_RGB.pack(pady=10)
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images_save\\enclot_therm.jpg')
-        self.image_thermique1 = Image.open(abs_file_path)
-        self.image_thermique2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
-        self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_enclot2)
+        abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')
+        self.image_thermique1 = Image.open(abs_file_path2)
+        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))
+        self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
         self.enclot_thermique.pack(pady=10)
 
 
@@ -281,6 +281,8 @@ class App(customtkinter.CTk):
 
         instance_change_img.change_image()
 
+        self.change_last_image()
+
         #affiche la nouvelle image, pour l'actualiser
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
@@ -291,7 +293,24 @@ class App(customtkinter.CTk):
 
             
 
-        
+    def change_last_image (self):
+        self.enclot_RGB.destroy()
+        self.enclot_thermique.destroy()
+
+        script_dir = os.path.dirname(__file__)
+        abs_file_path1 = os.path.join(script_dir, 'img_save\\enclot.jpg')
+        self.image_derniere_RGB1 = Image.open(abs_file_path1)
+        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))
+        self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
+        self.enclot_RGB.pack(pady=10)
+
+        script_dir = os.path.dirname(__file__)
+        abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')
+        self.image_thermique1 = Image.open(abs_file_path2)
+        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))
+        self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
+        self.enclot_thermique.pack(pady=10)
+            
     
 
     #lis le fichier etat_de_lenclot.txt et retourne l'état de l'enclot
