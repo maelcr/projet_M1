@@ -1,6 +1,7 @@
 import os
 import ultralytics
 from ultralytics import YOLO
+import shutil
 
 
 
@@ -18,9 +19,22 @@ class IA_detect_poussin():
 
         # Export the model
         #model.export(format='onnx')
-        self.model=YOLO(f'{self.HOME}/../yolov8n.pt')
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, 'yolov8n_poussins.pt')
+        self.model=YOLO(abs_file_path)
     
     def predict_image(self, file_name):
         script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, file_name)
-        self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.25)
+        abs_file_path = os.path.join(script_dir, 'images\\'+file_name)
+        self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2)
+
+
+        path='..\\runs\\detect\\predict\\'+file_name
+        abs_file_path_2 = os.path.join(script_dir, path)
+        abs_file_path_3 = os.path.join(script_dir, 'images\\'+file_name[:-4]+'_pred.jpg')
+        shutil.copyfile(abs_file_path_2 , abs_file_path_3)
+
+        path2='..\\runs\\detect\\predict'
+        abs_file_path_4 = os.path.join(script_dir, path2)
+        shutil.rmtree(abs_file_path_4)
+
