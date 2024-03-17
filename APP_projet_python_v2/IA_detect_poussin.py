@@ -20,7 +20,7 @@ class IA_detect_poussin():
         # Export the model
         #model.export(format='onnx')
         script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'yolov8n_poussins.pt')
+        abs_file_path = os.path.join(script_dir, 'yolov8_poussin.pt')
         self.model=YOLO(abs_file_path)
     
     def predict_image(self, file_name):
