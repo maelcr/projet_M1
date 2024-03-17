@@ -26,7 +26,7 @@ class IA_detect_poussin():
     def predict_image(self, file_name):
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, 'images\\'+file_name)
-        self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2)
+        self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2, show_labels=False, show_conf=False)
 
 
         path='..\\runs\\detect\\predict\\'+file_name
