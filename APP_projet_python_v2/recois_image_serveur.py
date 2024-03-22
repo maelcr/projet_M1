@@ -6,15 +6,19 @@ UDPClient.connect(ServerAdress)
 #bufferSize=1024
 #UDPClient=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+
 while True :
-    cmd=input('si vous voulez recevoir une image serveur, taper IMAGE \n')
-    cmd=cmd.encode('utf-8')
+    cmd_origin=input('si vous voulez recevoir une image serveur, taper IMAGE \n')
+    cmd=cmd_origin.encode('utf-8')
     UDPClient.sendto(cmd, ServerAdress)
-    if cmd=="IMAGE":
+    if (cmd_origin=="IMAGE"):
         file=open('image_serveur.jpg', 'wb')
+        print("continu")
         image_chunk=UDPClient.recv(2048)
+        print("continu")
         while image_chunk:
             file.write(image_chunk)
             image_chunk=UDPClient.recv(2048)
 
-        file.closec
+        file.close
+        print("reçu")
