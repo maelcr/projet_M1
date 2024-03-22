@@ -2,6 +2,13 @@ import socket
 
 UDPClient=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ServerAdress=('10.10.42.231', 2222)
+
+
+
+"""import socket
+
+UDPClient=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+ServerAdress=('10.10.42.231', 2222)
 UDPClient.connect(ServerAdress)
 #bufferSize=1024
 #UDPClient=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -22,3 +29,4 @@ while True :
 
         file.close
         print("reçu")
+"""
