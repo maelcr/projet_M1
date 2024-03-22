@@ -16,7 +16,7 @@ os.chdir(os.path.dirname(test))
 home= os.getcwd()
 instance_ia=IA_detect_poussin()
 
-instance_ia.predict_image('images\\poussin1.jpg')
+instance_ia.predict_image('poussin1.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")

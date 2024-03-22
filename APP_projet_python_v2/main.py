@@ -11,10 +11,14 @@ from lire_fichier import lire_fichier_txt
 from ecrire_fichier import ecrire_fichier_txt
 from sonde import sonde
 from update_image import update_image
+from IA_detect_poussin import IA_detect_poussin
 
 home= os.getcwd()
 instance_temp_sonde=sonde()
 instance_change_img=update_image()
+instance_ia=IA_detect_poussin()
+
+instance_ia.predict_image('poussin1.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -30,7 +34,7 @@ class App(customtkinter.CTk):
 
         #gérer la fenêtre
         self.title("Projet S8")
-        self.geometry("500x750")
+        self.geometry("800x950")
         self.check_var = tkinter.StringVar(value="on")
         self.check_chauffage_var = tkinter.StringVar(value="on")
         self.check_ouvert_var = tkinter.StringVar(value="on")
@@ -49,7 +53,7 @@ class App(customtkinter.CTk):
         
 
         #  ----- le tabview -----
-        self.tabview = customtkinter.CTkTabview(self,width=500,height=500)
+        self.tabview = customtkinter.CTkTabview(self,width=900,height=700)
         self.tabview.pack(pady=10)
         self.tab_cam = self.tabview.add("Camera_1")
         self.tab_notif = self.tabview.add("Notification")
@@ -284,13 +288,17 @@ class App(customtkinter.CTk):
 
         instance_change_img.change_image()
 
-        self.change_dernier_image()
+        if(int(self.mort_variable.get())>0):
+            self.change_dernier_image()
+        else:
+            self.enclot_RGB.destroy()
+            self.enclot_thermique.destroy()
 
         #affiche la nouvelle image, pour l'actualiser
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
         self.image_enclot1 = Image.open(abs_file_path) #ouvre l'image et le stoque dans image_enclot1
-        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #change la taille de l'image et le stoque dans image_enclot2
+        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((450,350))) #change la taille de l'image et le stoque dans image_enclot2
         self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
         self.enclot.pack(pady=10) #affiche l'image
 
@@ -301,16 +309,16 @@ class App(customtkinter.CTk):
         self.enclot_thermique.destroy()
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path1 = os.path.join(script_dir, 'img_save\\enclot.jpg')
+        abs_file_path1 = os.path.join(script_dir, 'images\\poussin1.jpg')
         self.image_derniere_RGB1 = Image.open(abs_file_path1)
-        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))
+        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
         self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
         self.enclot_RGB.pack(pady=10)
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')
+        abs_file_path2 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
         self.image_thermique1 = Image.open(abs_file_path2)
-        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))
+        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
         self.enclot_thermique.pack(pady=10)
             
