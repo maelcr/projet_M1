@@ -13,13 +13,27 @@ Created on Fri Dec 13 11:54:37 2019
 """
 
 import socket
-from utility import wait_for_acknowledge
+
+def wait_for_acknowledge(client,response):
+    """
+    Waiting for this response to be sent from the other party
+    """
+    amount_received = 0
+    amount_expected = len(response)
+    
+    msg = str()
+    while amount_received < amount_expected:
+        data = client.recv(16)
+        amount_received += len(data)
+        msg += data.decode("utf-8")
+        #print(msg)
+    return msg
 
 #initiate connection
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN
-client.connect(server_addr)
+#server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN 
+client.connect(('10.10.42.231', 2222))
 print(f"Connected to server!")
 
 client.settimeout(5) #limit each communication time to 5s
@@ -52,7 +66,7 @@ print(f"Client is now eceiving {imgCount_from_server} images.")
 
 for i in range(imgCount_from_server):
     index = i+1
-    file = f"./imgfromserver{index}.jpg"
+    file = f"APP_projet_python_V2\\images\\poussin{index}.jpg"
     try:                                            #check for existing file, will overwrite
         f = open(file, "x")           
         f.close()

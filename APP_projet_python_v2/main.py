@@ -18,7 +18,7 @@ instance_temp_sonde=sonde()
 instance_change_img=update_image()
 instance_ia=IA_detect_poussin()
 
-instance_ia.predict_image('poussin1.jpg')
+instance_ia.predict_image('poussin0.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
