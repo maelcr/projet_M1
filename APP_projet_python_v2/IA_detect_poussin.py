@@ -2,6 +2,7 @@ import os
 import ultralytics
 from ultralytics import YOLO
 import shutil
+from recoit_image_serveur import recoit_image_serveur
 
 
 
@@ -24,6 +25,7 @@ class IA_detect_poussin():
         self.model=YOLO(abs_file_path)
     
     def predict_image(self, file_name):
+        recoit_image_serveur()
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, 'images\\'+file_name)
         self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2, show_labels=False, show_conf=False)
