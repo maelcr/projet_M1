@@ -2,7 +2,7 @@ import os
 import ultralytics
 from ultralytics import YOLO
 import shutil
-from recoit_image_serveur import recoit_image_serveur
+from OptimizedClient import recoit_image_serveur
 
 
 

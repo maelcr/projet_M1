@@ -18,7 +18,7 @@ instance_temp_sonde=sonde()
 instance_change_img=update_image()
 instance_ia=IA_detect_poussin()
 
-instance_ia.predict_image('poussin0.jpg')
+#instance_ia.predict_image('poussin1.jpg')
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -289,6 +289,7 @@ class App(customtkinter.CTk):
         instance_change_img.change_image()
 
         if(int(self.mort_variable.get())>0):
+            instance_ia.predict_image('poussin1.jpg')
             self.change_dernier_image()
         else:
             self.enclot_RGB.destroy()
