@@ -33,7 +33,7 @@ def wait_for_acknowledge(client,response):
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN 
-client.connect(('10.10.42.231', 3333))
+client.connect(('10.10.42.231', 2222))
 print(f"Connected to server!")
 
 client.settimeout(5) #limit each communication time to 5s
@@ -99,7 +99,7 @@ def recoit_image_serveur():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     #server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN 
-    client.connect(('10.10.42.231', 3333))
+    client.connect(('10.10.42.231', 2222))
     print(f"Connected to server!")
 
     client.settimeout(5) #limit each communication time to 5s
