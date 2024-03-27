@@ -29,6 +29,7 @@ def wait_for_acknowledge(client,response):
         #print(msg)
     return msg
 
+"""
 #initiate connection
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -92,7 +93,7 @@ for i in range(imgCount_from_server):
 print("All images received.")
 print("Closing connection.")
 client.close()
-
+"""
 
 def recoit_image_serveur():
     #initiate connection
@@ -103,6 +104,9 @@ def recoit_image_serveur():
     print(f"Connected to server!")
 
     client.settimeout(5) #limit each communication time to 5s
+
+    cmd=str(2).encode('utf-8')
+    client.sendall(cmd)
 
     #listening to server command
     print("Client is now waiting for server's command.")
