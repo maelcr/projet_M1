@@ -12,6 +12,7 @@ from ecrire_fichier import ecrire_fichier_txt
 from sonde import sonde
 from update_image import update_image
 from IA_detect_poussin import IA_detect_poussin
+from client_temperature import recoit_temperature_serveur
 
 home= os.getcwd()
 instance_temp_sonde=sonde()
@@ -255,7 +256,8 @@ class App(customtkinter.CTk):
     #et d'apeller l'IA et d'autres programmes
     def reinit_variable(self):
 
-        instance_temp_sonde.tempo_change_save()
+        #instance_temp_sonde.tempo_change_save()
+        recoit_temperature_serveur()
         #degree_enclot
         # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
         i = lire_fichier_txt("save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt
