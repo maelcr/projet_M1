@@ -355,11 +355,12 @@ class App(customtkinter.CTk):
         param = '-n' if platform.system().lower()=='windows' else '-c'
 
         command = ['ping', param, '1', host]
+        value = "non connecté"
         
         if (subprocess.call(command) == 0):
             value = "connecté"
-        elif(subprocess.call(command) != 0):
-            value = "non connecté"
+        #elif(subprocess.call(command) != 0):
+        #    value = "non connecté"
         return value
     
         
