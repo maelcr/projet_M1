@@ -24,9 +24,9 @@ instance_ia=IA_detect_poussin()
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
-
+# démarons la class principale
 class App(customtkinter.CTk):
-    
+    # la class de graphisme
     def __init__(self):
         super().__init__()
         self.real_home = home.replace('\\', '/')
@@ -34,10 +34,10 @@ class App(customtkinter.CTk):
         
 
         #gérer la fenêtre
-        self.title("Projet S8")
-        self.geometry("800x950")
-        self.check_var = tkinter.StringVar(value="on")
-        self.check_chauffage_var = tkinter.StringVar(value="on")
+        self.title("Projet S8") #titre
+        self.geometry("800x950") #taille de la fenêtre
+        self.check_var = tkinter.StringVar(value="on") #créer des variables
+        self.check_chauffage_var = tkinter.StringVar(value="on") 
         self.check_ouvert_var = tkinter.StringVar(value="on")
 
         #titre
