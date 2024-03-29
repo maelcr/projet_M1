@@ -36,27 +36,27 @@ class App(customtkinter.CTk):
         #gérer la fenêtre
         self.title("Projet S8") #titre
         self.geometry("800x950") #taille de la fenêtre
-        self.check_var = tkinter.StringVar(value="on") #créer des variables
+        self.check_var = tkinter.StringVar(value="on") #créer des variables qui sont des sortes de conteneur 
         self.check_chauffage_var = tkinter.StringVar(value="on") 
         self.check_ouvert_var = tkinter.StringVar(value="on")
 
         #titre
-        self.label = customtkinter.CTkLabel(master = self ,text="Projet S8")
-        self.label.pack(pady=12, padx=10)
+        self.label = customtkinter.CTkLabel(master = self ,text="Projet S8") #créer le titre
+        self.label.pack(pady=12, padx=10) #affiche le titre
 
         # ----- initialisation des variables de départ -----
         
-        self.degree_variable = tkinter.StringVar(value=lire_fichier_txt("save/degree.txt"))
-        self.detection_cam_variable = tkinter.StringVar(value= self.ping("google.fr"))
+        self.degree_variable = tkinter.StringVar(value=lire_fichier_txt("save/degree.txt")) # On initialise les variables comme des conteneur,
+        self.detection_cam_variable = tkinter.StringVar(value= self.ping("google.fr")) #  un peut comme précédemment
         self.etat_enclot_variable = tkinter.StringVar(value=self.check_etat_enclot())
         self.mort_variable = tkinter.StringVar(value=lire_fichier_txt("save/death_note.txt"))
         self.dangerosite_degree = tkinter.StringVar(value=self.temperature_dangerosite())
         
 
         #  ----- le tabview -----
-        self.tabview = customtkinter.CTkTabview(self,width=900,height=700)
-        self.tabview.pack(pady=10)
-        self.tab_cam = self.tabview.add("Camera_1")
+        self.tabview = customtkinter.CTkTabview(self,width=900,height=700) # créer le cadre intérieur de l'application, le sorte de cube en arrière plan gris
+        self.tabview.pack(pady=10) # affiche ce cadre
+        self.tab_cam = self.tabview.add("Camera_1") #créer des tab, pour trier ce qui est affiché
         self.tab_notif = self.tabview.add("Notification")
         self.tab_info = self.tabview.add("Information")
         self.tab_temps_reel = self.tabview.add("temp réel")
