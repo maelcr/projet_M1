@@ -316,8 +316,8 @@ class App(customtkinter.CTk):
         abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
         self.image_enclot1 = Image.open(abs_file_path) #ouvre l'image et le stoque dans image_enclot1
         self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((450,350))) #change la taille de l'image et le stoque dans image_enclot2
-        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
-        self.enclot.pack(pady=10) #affiche l'image
+        #self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
+        #self.enclot.pack(pady=10) #affiche l'image
         self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)
         self.enclot_temp.pack(pady=10)
 
@@ -331,25 +331,37 @@ class App(customtkinter.CTk):
 
         script_dir = os.path.dirname(__file__)
         abs_file_path1 = os.path.join(script_dir, 'images\\poussin1.jpg')
-        self.image_derniere_RGB1 = Image.open(abs_file_path1)
-        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
-        self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
-        self.enclot_RGB.pack(pady=10)
-        self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
-        self.enclot_RGB_temp.pack(pady=10)
+        try:
+            self.image_derniere_RGB1 = Image.open(abs_file_path1)
+            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+            self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
+            self.enclot_RGB.pack(pady=10)
+            self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
+            self.enclot_RGB_temp.pack(pady=10)
+        
+        except :
+            print("probleme transfer image")
+        
 
         
         abs_file_path2 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
-        self.image_thermique1 = Image.open(abs_file_path2)
-        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
-        self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
-        self.enclot_thermique.pack(pady=10)
+        try:
+            self.image_thermique1 = Image.open(abs_file_path2)
+            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+            self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
+            self.enclot_thermique.pack(pady=10)
+        
+        except:
+            print("probleme transfer image")
 
-        self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
-        self.enclot_RGB_temp.pack(pady=10)
+        try : 
+            self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
+            self.enclot_RGB_temp.pack(pady=10)
 
-        self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
-        self.enclot_thermique_temp.pack(pady=10)
+            self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
+            self.enclot_thermique_temp.pack(pady=10)
+        except : 
+            print("probleme transfer image")
             
     
 

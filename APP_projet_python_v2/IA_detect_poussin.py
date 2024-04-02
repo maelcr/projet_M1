@@ -28,15 +28,20 @@ class IA_detect_poussin():
         recoit_image_serveur()
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, 'images\\'+file_name)
-        self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2, show_labels=False, show_conf=False)
+        try :
+            self.model.predict(abs_file_path, save=True, imgsz=800, conf=0.2, show_labels=False, show_conf=False)
 
 
-        path='..\\runs\\detect\\predict\\'+file_name
-        abs_file_path_2 = os.path.join(script_dir, path)
-        abs_file_path_3 = os.path.join(script_dir, 'images\\'+file_name[:-4]+'_pred.jpg')
-        shutil.copyfile(abs_file_path_2 , abs_file_path_3)
+            path='..\\runs\\detect\\predict\\'+file_name
+            abs_file_path_2 = os.path.join(script_dir, path)
+            abs_file_path_3 = os.path.join(script_dir, 'images\\'+file_name[:-4]+'_pred.jpg')
+            shutil.copyfile(abs_file_path_2 , abs_file_path_3)
 
-        path2='..\\runs\\detect\\predict'
-        abs_file_path_4 = os.path.join(script_dir, path2)
-        shutil.rmtree(abs_file_path_4)
+            path2='..\\runs\\detect\\predict'
+            abs_file_path_4 = os.path.join(script_dir, path2)
+            shutil.rmtree(abs_file_path_4)
+        except :
+            path2='..\\runs\\detect\\predict'
+            abs_file_path_4 = os.path.join(script_dir, path2)
+            shutil.rmtree(abs_file_path_4)
 
