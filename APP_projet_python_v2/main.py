@@ -64,60 +64,63 @@ class App(customtkinter.CTk):
         # ----- tab de la camera -----
         
         #bouton d'actualisation des variable
-        self.bouton_degree = customtkinter.CTkButton(self.tab_cam,text="actualisation",command=self.reinit_variable)
-        self.bouton_degree.pack(pady=0)
+        self.bouton_degree = customtkinter.CTkButton(self.tab_cam,text="actualisation",command=self.reinit_variable)#création d'un bouton avec CTkButton
+        self.bouton_degree.pack(pady=0)#affichage de ce bouton avec .pack
 
         #affichage caméra connecté
-        self.label_titre1 = customtkinter.CTkLabel(self.tab_cam,text= "CAMERA connecté? :")
-        self.label_titre1.pack(pady=0)
-        self.connecte_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.detection_cam_variable)
-        self.connecte_label.pack(pady=0)
+        self.label_titre1 = customtkinter.CTkLabel(self.tab_cam,text= "CAMERA connecté? :")#création d'une ligne de texte avec CTkLabel
+        self.label_titre1.pack(pady=0)# affichage de ce texte
+        self.connecte_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.detection_cam_variable)#idem mais avec la variable detection_cam_variable en tant que texte
+        self.connecte_label.pack(pady=0)#affichage
 
         #affichage etat enclot
-        self.connecte_titre = customtkinter.CTkLabel(self.tab_cam,text= "Etat:")
-        self.connecte_titre.pack(pady=0)
-        self.connecte_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.etat_enclot_variable)
-        self.connecte_label.pack(pady=0)
+        self.connecte_titre = customtkinter.CTkLabel(self.tab_cam,text= "Etat:")#création d'une ligne de texte avec CTkLabel
+        self.connecte_titre.pack(pady=0)# affichage de ce texte
+        self.connecte_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.etat_enclot_variable)#idem mais avec la variable detection_cam_variable en tant que texte
+        self.connecte_label.pack(pady=0)# affichage de ce texte
 
         #affichage nb mort
-        self.mort_titre = customtkinter.CTkLabel(self.tab_cam,text= "mort détecté:")
-        self.mort_titre.pack(pady=0)
-        self.mort_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.mort_variable)
-        self.mort_label.pack(pady=0)
+        self.mort_titre = customtkinter.CTkLabel(self.tab_cam,text= "mort détecté:")#création d'une ligne de texte avec CTkLabel
+        self.mort_titre.pack(pady=0)# affichage de ce texte
+        self.mort_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.mort_variable)#idem mais avec la variable detection_cam_variable en tant que texte
+        self.mort_label.pack(pady=0)# affichage de ce texte
 
         #affichage degrée enclot
-        self.degree_titre = customtkinter.CTkLabel(self.tab_cam,text= "degree dans l'enclot:")
-        self.degree_titre.pack(pady=0)
-        self.degree_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.degree_variable)
-        self.degree_label.pack(pady=0)
+        self.degree_titre = customtkinter.CTkLabel(self.tab_cam,text= "degree dans l'enclot:")#création d'une ligne de texte avec CTkLabel
+        self.degree_titre.pack(pady=0)# affichage de ce texte
+        self.degree_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.degree_variable)#idem mais avec la variable detection_cam_variable en tant que texte
+        self.degree_label.pack(pady=0)# affichage de ce texte
 
         #degrée enclot dangerosité
-        self.degree_dangerosite_titre = customtkinter.CTkLabel(self.tab_cam,text= "dangerosité temperature : ")
-        self.degree_dangerosite_titre.pack(pady=0)
-        self.degree_dangerosite_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.dangerosite_degree)
-        self.degree_dangerosite_label.pack(pady=0)
+        self.degree_dangerosite_titre = customtkinter.CTkLabel(self.tab_cam,text= "dangerosité temperature : ")#création d'une ligne de texte avec CTkLabel
+        self.degree_dangerosite_titre.pack(pady=0)# affichage de ce texte
+        self.degree_dangerosite_label = customtkinter.CTkLabel( self.tab_cam, textvariable=self.dangerosite_degree)#idem mais avec la variable detection_cam_variable en tant que texte
+        self.degree_dangerosite_label.pack(pady=0)# affichage de ce texte
 
         #chauffage présent ou non
+        #création du checkbox avec CTkCheckbox, qui va avoir deux états, 1 et 0, 1 quand il est checked, 0 quand il ne l'es pas.
         self.checkbox_chauffage_present = customtkinter.CTkCheckBox(self.tab_cam,text="chauffage present.",command=self.checkbox_chauffage_ecriture_present, variable=self.check_chauffage_var,onvalue="on",offvalue="off")
-        self.checkbox_chauffage_present.pack(pady=5,padx=10)
-        self.checkbox_chauffage_apply("save/chauffage_activation.txt")
+        self.checkbox_chauffage_present.pack(pady=5,padx=10)#affichage du checkbox
+        self.checkbox_chauffage_apply("save/chauffage_activation.txt") #appelle une fonction qui va enregistrer l'état de la checkbox dans un fichier de sauveguarde.
         
         #enclot ouvert ou non
+        #création du checkbox avec CTkCheckbox, qui va avoir deux états, 1 et 0, 1 quand il est checked, 0 quand il ne l'es pas.
         self.checkbox_enclot_ouvert = customtkinter.CTkCheckBox(self.tab_cam,text="enclot ouvert ou non",command=self.checkbox_enclot_ouvert_ecriture, variable=self.check_ouvert_var,onvalue="on",offvalue="off")
-        self.checkbox_enclot_ouvert.pack(pady=5,padx=10)
-        self.checkbox_ouvert_apply("save/enclot_ouvert.txt")
+        self.checkbox_enclot_ouvert.pack(pady=5,padx=10)#affichage du checkbox
+        self.checkbox_ouvert_apply("save/enclot_ouvert.txt")#appelle une fonction qui va enregistrer l'état de la checkbox dans un fichier de sauveguarde.
         
         #bouton vue
-        self.bouton = customtkinter.CTkButton(self.tab_cam,text="vue",command=self.reponse_vue)
-        self.bouton.pack(pady=15)
+         #création d'un bouton avec CTkButton, qui va apeller une fonction "command" quand elle seras appuyée
+        self.bouton = customtkinter.CTkButton(self.tab_cam,text="vue",command=self.reponse_vue)#dans ce cas, elle apelle self.reponse_vue (même si c'est une fonction, ne pas mettre de () à la fin)
+        self.bouton.pack(pady=15)#affichage
 
         #affichage de l'enclot
-        script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images\\enclot.jpg')
-        self.image_enclot1 = Image.open(abs_file_path)
-        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150)))
-        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2)
-        self.enclot.pack(pady=10)
+        script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
+        abs_file_path = os.path.join(script_dir, 'images\\enclot.jpg')#crée le filepath brut
+        self.image_enclot1 = Image.open(abs_file_path)# ouvre l'image du filepath
+        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #créer la variable qui stoque l'image avec la taille de celle cis
+        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) # création de l'image avec ce qui as été stoqué
+        self.enclot.pack(pady=10) #affichage de l'image
 
         
         
