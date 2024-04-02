@@ -137,14 +137,14 @@ class App(customtkinter.CTk):
         self.image_derniere_RGB1 = Image.open(abs_file_path1)# ouvre l'image du filepath
         self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)# création de l'image avec ce qui as été stoqué
-        self.enclot_RGB.pack(pady=10)
+        self.enclot_RGB.pack(pady=10) #affiche image
 
         #script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
         abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')#crée le filepath brut de l'image
         self.image_thermique1 = Image.open(abs_file_path2)# ouvre l'image du filepath
         self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)# création de l'image avec ce qui as été stoqué
-        self.enclot_thermique.pack(pady=10)
+        self.enclot_thermique.pack(pady=10) #affiche image
 
 
         
@@ -152,19 +152,18 @@ class App(customtkinter.CTk):
         # ----- tab information -----
 
         #image isen
-        script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images/isen.png')
-        self.logo_isen = Image.open(abs_file_path)
-        self.image_isen = ImageTk.PhotoImage(self.logo_isen.resize((200,150)))
-        self.le_label = customtkinter.CTkLabel(self.tab_info, text="", image=self.image_isen)
-        self.le_label.pack(pady=10)
+        abs_file_path = os.path.join(script_dir, 'images/isen.png')#crée le filepath brut de l'image
+        self.logo_isen = Image.open(abs_file_path)# ouvre l'image du filepath
+        self.image_isen = ImageTk.PhotoImage(self.logo_isen.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
+        self.le_label = customtkinter.CTkLabel(self.tab_info, text="", image=self.image_isen)# création de l'image avec ce qui as été stoqué
+        self.le_label.pack(pady=10)#affiche image
 
         # create textbox
-        self.textbox = customtkinter.CTkTextbox(self.tab_info)
-        self.textbox.configure(state = NORMAL)
-        self.textbox.insert('end','tesg \n retour a la ligne \n trop bi1')
-        self.textbox.configure(state=DISABLED)
-        self.textbox.pack(pady=30, padx=20)
+        self.textbox = customtkinter.CTkTextbox(self.tab_info)#création d'un textbox avec CTkTextbox (un stoquage de txt scrollable)
+        self.textbox.configure(state = NORMAL) #on démare l'écriture
+        self.textbox.insert('end','tesg \n retour a la ligne \n trop bi1') #le texte qu'il y as dans le document, ( \n sert à passer une ligne )
+        self.textbox.configure(state=DISABLED) #on stop l'écriture
+        self.textbox.pack(pady=30, padx=20) #affichage textbox
 
         
         
@@ -172,16 +171,16 @@ class App(customtkinter.CTk):
         # ----- tab temps réel -----
 
         #nous réaffichons les différentes images de l'enclot dans un nouveau tab
-        self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)
-        self.enclot_temp.pack(pady=10)
+        self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)# création de l'image avec ce qui as été stoqué
+        self.enclot_temp.pack(pady=10) #affiche l'image
 
-        self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
-        self.enclot_RGB_temp.pack(pady=10)
+        self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)# création de l'image avec ce qui as été stoqué
+        self.enclot_RGB_temp.pack(pady=10)#affiche l'image
 
-        self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
-        self.enclot_thermique_temp.pack(pady=10)
+        self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)# création de l'image avec ce qui as été stoqué
+        self.enclot_thermique_temp.pack(pady=10)#affiche l'image
         
-        self.update_label()
+        self.update_label() #apelle la fonction update_label, qui va actualiser les variables et photos toutes les secondes.
 
         
 
@@ -210,10 +209,9 @@ class App(customtkinter.CTk):
         
         
     def temperature_dangerosite(self):
-        
-            value_chauffage = lire_fichier_txt("save/chauffage_activation.txt")
-            value_ouvert = lire_fichier_txt("save/enclot_ouvert.txt")
-            if (value_chauffage=="0" and value_ouvert=="0"):
+            value_chauffage = lire_fichier_txt("save/chauffage_activation.txt") #lis l'état enregistrée du checkbox chauffage_activation
+            value_ouvert = lire_fichier_txt("save/enclot_ouvert.txt") #lis l'état enregistrée du checkbox enclot_ouvert
+            if (value_chauffage=="0" and value_ouvert=="0"): #va apeller test_check_degree() avec différents paramètres en fonction des checkbox.
                 value_final = self.test_check_degree("20","30")
             elif (value_chauffage=="1" and value_ouvert=="0"):
                 value_final = self.test_check_degree("25","30")
@@ -221,35 +219,29 @@ class App(customtkinter.CTk):
                 value_final = "fenetre ouverte"
             
             
-            return value_final
+            return value_final #retourne la valeur char donnée par test_check_chauffage
 
     #détecte si le ckeckbox à été touché et lis sa value, puis enregistre le changement, je ne peut pas plus l'optimiser sinon beug
     def checkbox_chauffage_ecriture(self):
-
-        print("checkbox toggled, current value:", self.check_var.get()) 
-        if (self.check_var.get() == "on"):
+        if (self.check_var.get() == "on"): 
             ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","1")
         elif (self.check_var.get() == "off"):
             ecrire_fichier_txt("save/sauveguarde_checkbox_chauffage.txt","0")
 
     def checkbox_chauffage_ecriture_present(self):
-
-        print("checkbox toggled, current value:", self.check_chauffage_var.get()) 
         if (self.check_chauffage_var.get() == "on"):
             ecrire_fichier_txt("save/chauffage_activation.txt","1")
         elif (self.check_chauffage_var.get() == "off"):
             ecrire_fichier_txt("save/chauffage_activation.txt","0")
 
     def checkbox_enclot_ouvert_ecriture(self):
-
-        print("checkbox toggled, current value:", self.check_ouvert_var.get()) 
         if (self.check_ouvert_var.get() == "on"):
             ecrire_fichier_txt("save/enclot_ouvert.txt","1")
         elif (self.check_ouvert_var.get() == "off"):
             ecrire_fichier_txt("save/enclot_ouvert.txt","0")
     
 
-
+    #initialise les checkbox par raport aux sauveguardes lors du démarage de l'application
     def checkbox_apply(self, mon_fichier):
         value_checkbox = lire_fichier_txt(mon_fichier)
         if (value_checkbox == "0"):
@@ -309,6 +301,7 @@ class App(customtkinter.CTk):
         self.enclot.destroy()
         self.enclot_temp.destroy()
 
+        #apelle change_image
         instance_change_img.change_image()
 
         if(int(self.mort_variable.get())>0):
@@ -329,7 +322,7 @@ class App(customtkinter.CTk):
         self.enclot_temp.pack(pady=10)
 
             
-
+    
     def change_dernier_image (self):
         self.enclot_RGB.destroy()
         self.enclot_thermique.destroy()
@@ -345,7 +338,7 @@ class App(customtkinter.CTk):
         self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
         self.enclot_RGB_temp.pack(pady=10)
 
-        script_dir = os.path.dirname(__file__)
+        
         abs_file_path2 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
         self.image_thermique1 = Image.open(abs_file_path2)
         self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
