@@ -9,14 +9,10 @@ import subprocess
 import time
 from lire_fichier import lire_fichier_txt
 from ecrire_fichier import ecrire_fichier_txt
-from sonde import sonde
-from update_image import update_image
 from IA_detect_poussin import IA_detect_poussin
 from client_temperature import recoit_temperature_serveur
 
 home= os.getcwd()
-instance_temp_sonde=sonde()
-instance_change_img=update_image()
 instance_ia=IA_detect_poussin()
 
 #instance_ia.predict_image('poussin1.jpg')
@@ -268,7 +264,6 @@ class App(customtkinter.CTk):
     #et d'apeller l'IA et d'autres programmes
     def reinit_variable(self):
 
-        #instance_temp_sonde.tempo_change_save()
         recoit_temperature_serveur()
         #degree_enclot
         # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
@@ -301,25 +296,12 @@ class App(customtkinter.CTk):
         self.enclot.destroy()
         self.enclot_temp.destroy()
 
-        #apelle change_image
-        instance_change_img.change_image()
-
         if(int(self.mort_variable.get())>0):
             instance_ia.predict_image('poussin1.jpg')
             self.change_dernier_image()
         else:
             self.enclot_RGB.destroy()
             self.enclot_thermique.destroy()
-
-        #affiche la nouvelle image, pour l'actualiser
-        script_dir = os.path.dirname(__file__)
-        abs_file_path = os.path.join(script_dir, 'images\\duck.jpg')
-        self.image_enclot1 = Image.open(abs_file_path) #ouvre l'image et le stoque dans image_enclot1
-        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((450,350))) #change la taille de l'image et le stoque dans image_enclot2
-        #self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) #met l'image sous format customtkinter avec les différents paramètres, le stoque dans enclot
-        #self.enclot.pack(pady=10) #affiche l'image
-        self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)
-        self.enclot_temp.pack(pady=10)
 
             
     
