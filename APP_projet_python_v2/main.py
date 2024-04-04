@@ -119,13 +119,13 @@ class App(customtkinter.CTk):
 
         abs_file_path1 = os.path.join(script_dir, 'img_save\\placeholder1.jpg')#crée le filepath brut de l'image
         self.image_derniere_RGB1 = Image.open(abs_file_path1)# ouvre l'image du filepath
-        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
+        self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((190,140)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)# création de l'image avec ce qui as été stoqué
         self.enclot_RGB.pack(pady=10) #affiche image
 
         abs_file_path2 = os.path.join(script_dir, 'img_save\\placeholder2.jpg')#crée le filepath brut de l'image
         self.image_thermique1 = Image.open(abs_file_path2)# ouvre l'image du filepath
-        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
+        self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((190,140)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)# création de l'image avec ce qui as été stoqué
         self.enclot_thermique.pack(pady=10) #affiche image
 
@@ -281,8 +281,9 @@ class App(customtkinter.CTk):
         self.mort_variable.set(lire_fichier_txt("save/death_note.txt") )
 
         instance_ia.predict_image('poussin1.jpg')
-        self.change_image_notif()
         self.change_image_direct()
+        self.change_image_notif()
+        
 
 
     def change_image_notif(self):
