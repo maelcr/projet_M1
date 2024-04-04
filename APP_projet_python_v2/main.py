@@ -298,7 +298,7 @@ class App(customtkinter.CTk):
 
             try:
                 self.placholder1_1 = Image.open(abs_file_path1)
-                self.placholder1_2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+                self.placholder1_2= ImageTk.PhotoImage(self.placholder1_1.resize((500,350)))
                 self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder1_2)
                 self.enclot_RGB.pack(pady=10)
         
@@ -308,7 +308,7 @@ class App(customtkinter.CTk):
         
             try:
                 self.placholder2_1 = Image.open(abs_file_path2)
-                self.placholder2_2 = ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+                self.placholder2_2 = ImageTk.PhotoImage(self.placholder2_1.resize((500,350)))
                 self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder2_2)
                 self.enclot_thermique.pack(pady=10)
         
@@ -328,17 +328,17 @@ class App(customtkinter.CTk):
 
         try : 
             self.image_derniere_RGB1 = Image.open(abs_file_path3)
-            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((550,375)))
             self.image_direct = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
             self.image_direct.pack(pady=10)
 
             self.image_thermique1 = Image.open(abs_file_path4)
-            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((550,375)))
             self.image_direct_therm = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
             self.image_direct_therm.pack(pady=10)
         except : 
             print("probleme transfer image")
-            
+
     
 
     #lis le fichier etat_de_lenclot.txt et retourne l'état de l'enclot
