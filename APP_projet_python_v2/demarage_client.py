@@ -1,6 +1,6 @@
 import socket
 
-def wait_for_acknowledge(client,reponse):
+def attente_ACK_serveur(client,reponse): 
     """
     Ce code permet d'attendre les retours du serveur en fonction de ce qu'on s'attend à recevoir
     """
@@ -29,7 +29,7 @@ def recoit_image_serveur():
 
 
     print("Le client attend maintenant la commande du serveur")
-    cmd_from_server = wait_for_acknowledge(client,"debut transfer image")
+    cmd_from_server = attente_ACK_serveur(client,"debut transfer image")
 
 
     if cmd_from_server == "debut transfer image":
@@ -50,7 +50,7 @@ def recoit_image_serveur():
         f = open(file, "wb")
     print(f"\treception de l'image")
     #très important : on veux savoir de quel taille sera l'image recu
-    imgsize = int(wait_for_acknowledge(client,str(3)))
+    imgsize = int(attente_ACK_serveur(client,str(3)))
     print(f"\tune image de {imgsize}B vas être reçu par le client")
     print("ACK...")
     client.sendall(bytes("ACK","utf-8"))  

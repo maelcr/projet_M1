@@ -25,8 +25,6 @@ class App(customtkinter.CTk):
         super().__init__()
         self.real_home = home.replace('\\', '/')
         
-        
-
         #gérer la fenêtre
         self.title("Projet S8") #titre
         self.geometry("800x950") #taille de la fenêtre
@@ -109,12 +107,12 @@ class App(customtkinter.CTk):
         self.bouton.pack(pady=15)#affichage
 
         #affichage de l'enclot
-        script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
-        abs_file_path = os.path.join(script_dir, 'images\\enclot.jpg')#crée le filepath brut de l'image
-        self.image_enclot1 = Image.open(abs_file_path)# ouvre l'image du filepath
-        self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #créer la variable qui stoque l'image avec la taille de celle cis
-        self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) # création de l'image avec ce qui as été stoqué
-        self.enclot.pack(pady=10) #affichage de l'image
+        #script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
+        #abs_file_path = os.path.join(script_dir, 'images\\enclot.jpg')#crée le filepath brut de l'image
+        #self.image_enclot1 = Image.open(abs_file_path)# ouvre l'image du filepath
+        #self.image_enclot2= ImageTk.PhotoImage(self.image_enclot1.resize((200,150))) #créer la variable qui stoque l'image avec la taille de celle cis
+        #self.enclot = customtkinter.CTkLabel(self.tab_cam, text="", image=self.image_enclot2) # création de l'image avec ce qui as été stoqué
+        #self.enclot.pack(pady=10) #affichage de l'image
 
         
         
@@ -122,26 +120,24 @@ class App(customtkinter.CTk):
 
         #notification chauffage
         #création du checkbox avec CTkCheckbox, qui va avoir deux états, 1 et 0, 1 quand il est checked, 0 quand il ne l'es pas.
-        self.checkbox_chauffage = customtkinter.CTkCheckBox(self.tab_notif,text="chauffage",command=self.checkbox_chauffage_ecriture, variable=self.check_var,onvalue="on",offvalue="off")
+        self.checkbox_chauffage = customtkinter.CTkCheckBox(self.tab_notif,text="active notification probleme chauffage",command=self.checkbox_chauffage_ecriture, variable=self.check_var,onvalue="on",offvalue="off")
         self.checkbox_chauffage.pack(pady=12,padx=10)#affichage checkbox
         self.checkbox_apply("save/sauveguarde_checkbox_chauffage.txt")#appelle une fonction qui va enregistrer l'état de la checkbox dans un fichier de sauveguarde.
 
-        #script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
-        abs_file_path1 = os.path.join(script_dir, 'img_save\\enclot.jpg')#crée le filepath brut de l'image
+        script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
+
+        abs_file_path1 = os.path.join(script_dir, 'img_save\\placeholder1.jpg')#crée le filepath brut de l'image
         self.image_derniere_RGB1 = Image.open(abs_file_path1)# ouvre l'image du filepath
         self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)# création de l'image avec ce qui as été stoqué
         self.enclot_RGB.pack(pady=10) #affiche image
 
-        #script_dir = os.path.dirname(__file__)#demande à l'ordinateur le filepath brut du fichier
-        abs_file_path2 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')#crée le filepath brut de l'image
+        abs_file_path2 = os.path.join(script_dir, 'img_save\\placeholder2.jpg')#crée le filepath brut de l'image
         self.image_thermique1 = Image.open(abs_file_path2)# ouvre l'image du filepath
         self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((200,150)))#créer la variable qui stoque l'image avec la taille de celle cis
         self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)# création de l'image avec ce qui as été stoqué
         self.enclot_thermique.pack(pady=10) #affiche image
 
-
-        
 
         # ----- tab information -----
 
@@ -165,15 +161,23 @@ class App(customtkinter.CTk):
         # ----- tab temps réel -----
 
         #nous réaffichons les différentes images de l'enclot dans un nouveau tab
-        self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)# création de l'image avec ce qui as été stoqué
-        self.enclot_temp.pack(pady=10) #affiche l'image
+        #self.enclot_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_enclot2)# création de l'image avec ce qui as été stoqué
+        #self.enclot_temp.pack(pady=10) #affiche l'image
 
-        self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)# création de l'image avec ce qui as été stoqué
-        self.enclot_RGB_temp.pack(pady=10)#affiche l'image
+        abs_file_path3 = os.path.join(script_dir, 'img_save\\enclot.jpg')#crée le filepath brut de l'image
+        self.image_temp1 = Image.open(abs_file_path3)# ouvre l'image du filepath
+        self.image_temp2= ImageTk.PhotoImage(self.image_temp1.resize((200,150)))
+        self.image_direct = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_temp2)# création de l'image avec ce qui as été stoqué
+        self.image_direct.pack(pady=10)#affiche l'image
 
-        self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)# création de l'image avec ce qui as été stoqué
-        self.enclot_thermique_temp.pack(pady=10)#affiche l'image
+        abs_file_path4 = os.path.join(script_dir, 'img_save\\enclot_therm.jpg')#crée le filepath brut de l'image
+        self.image_temp_direct1 = Image.open(abs_file_path4)# ouvre l'image du filepath
+        self.image_temp_direct2= ImageTk.PhotoImage(self.image_temp_direct1.resize((200,150)))
+        self.image_direct_therm = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_temp_direct2)# création de l'image avec ce qui as été stoqué
+        self.image_direct_therm.pack(pady=10)#affiche l'image
         
+
+
         self.update_label() #apelle la fonction update_label, qui va actualiser les variables et photos toutes les secondes.
 
         
@@ -291,18 +295,21 @@ class App(customtkinter.CTk):
         self.mort_variable.set(lire_fichier_txt("save/death_note.txt") )
 
         #détruit l'image enclot affiché
-        self.enclot.destroy()
-        self.enclot_temp.destroy()
+        #self.enclot.destroy()
+        #self.enclot_temp.destroy()
 
-        if(int(self.mort_variable.get())>0):
-            instance_ia.predict_image('poussin1.jpg')
-            self.change_dernier_image()
-        else:
-            self.enclot_RGB.destroy()
-            self.enclot_thermique.destroy()
+        #if(int(self.mort_variable.get())>0):
+        #    instance_ia.predict_image('poussin1.jpg')
+        #    self.change_dernier_image()
+        #else:
+        #    self.enclot_RGB.destroy()
+        #    self.enclot_thermique.destroy()
+        instance_ia.predict_image('poussin1.jpg')
+        self.change_image_notif()
+        self.change_image_direct()
 
             
-    
+    """ 
     def change_dernier_image (self):
         self.enclot_RGB.destroy()
         self.enclot_thermique.destroy()
@@ -310,36 +317,96 @@ class App(customtkinter.CTk):
         self.enclot_thermique_temp.destroy()
 
         script_dir = os.path.dirname(__file__)
-        abs_file_path1 = os.path.join(script_dir, 'images\\poussin1.jpg')
+        
+        abs_file_path1 = os.path.join(script_dir, 'img_save\\placeholder1.jpg')
         try:
-            self.image_derniere_RGB1 = Image.open(abs_file_path1)
-            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
-            self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
+            self.placholder1_1 = Image.open(abs_file_path1)
+            self.placholder1_2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+            self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder1_2)
             self.enclot_RGB.pack(pady=10)
-            self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image__derniere_RGB2)
-            self.enclot_RGB_temp.pack(pady=10)
         
         except :
             print("probleme transfer image")
         
 
         
-        abs_file_path2 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
+        abs_file_path2 = os.path.join(script_dir, 'img_save\\placeholder2.jpg')
         try:
-            self.image_thermique1 = Image.open(abs_file_path2)
-            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
-            self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.image_thermique2)
+            self.placholder2_1 = Image.open(abs_file_path2)
+            self.placholder2_2 = ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+            self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder2_2)
             self.enclot_thermique.pack(pady=10)
         
         except:
             print("probleme transfer image")
 
+        
+        abs_file_path3 = os.path.join(script_dir, 'images\\poussin1.jpg')
+        abs_file_path4 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
+
         try : 
+            self.image_derniere_RGB1 = Image.open(abs_file_path3)
+            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
             self.enclot_RGB_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
             self.enclot_RGB_temp.pack(pady=10)
 
+            self.image_thermique1 = Image.open(abs_file_path4)
+            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
             self.enclot_thermique_temp = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
             self.enclot_thermique_temp.pack(pady=10)
+        except : 
+            print("probleme transfer image")
+        """
+    def change_image_notif(self):
+        self.enclot_RGB.destroy()
+        self.enclot_thermique.destroy()
+
+        if(int(self.mort_variable.get())>0):
+            script_dir = os.path.dirname(__file__)
+
+            abs_file_path1 = os.path.join(script_dir, 'img_save\\placeholder1.jpg')
+            abs_file_path2 = os.path.join(script_dir, 'img_save\\placeholder2.jpg')
+
+            try:
+                self.placholder1_1 = Image.open(abs_file_path1)
+                self.placholder1_2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+                self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder1_2)
+                self.enclot_RGB.pack(pady=10)
+        
+            except :
+                print("probleme transfer image")
+        
+        
+            try:
+                self.placholder2_1 = Image.open(abs_file_path2)
+                self.placholder2_2 = ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+                self.enclot_thermique = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder2_2)
+                self.enclot_thermique.pack(pady=10)
+        
+            except:
+                print("probleme transfer image")
+
+        
+
+    def change_image_direct(self):
+        
+        self.image_direct.destroy()
+        self.image_direct_therm.destroy()
+
+        script_dir = os.path.dirname(__file__)
+        abs_file_path3 = os.path.join(script_dir, 'images\\poussin1.jpg')
+        abs_file_path4 = os.path.join(script_dir, 'images\\poussin1_pred.jpg')
+
+        try : 
+            self.image_derniere_RGB1 = Image.open(abs_file_path3)
+            self.image__derniere_RGB2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+            self.image_direct = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image__derniere_RGB2)
+            self.image_direct.pack(pady=10)
+
+            self.image_thermique1 = Image.open(abs_file_path4)
+            self.image_thermique2= ImageTk.PhotoImage(self.image_thermique1.resize((450,370)))
+            self.image_direct_therm = customtkinter.CTkLabel(self.tab_temps_reel, text="", image=self.image_thermique2)
+            self.image_direct_therm.pack(pady=10)
         except : 
             print("probleme transfer image")
             
@@ -377,8 +444,6 @@ class App(customtkinter.CTk):
         
         if (subprocess.call(command) == 0):
             value = "connecté"
-        #elif(subprocess.call(command) != 0):
-        #    value = "non connecté"
         return value
     
         
