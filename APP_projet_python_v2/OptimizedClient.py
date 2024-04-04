@@ -1,162 +1,67 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 13 13:12:56 2019
-
-@author: hoang
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 13 11:54:37 2019
-
-@author: hoang
-"""
-
 import socket
 
-def wait_for_acknowledge(client,response):
+def wait_for_acknowledge(client,reponse):
     """
-    Waiting for this response to be sent from the other party
+    Ce code permet d'attendre les retours du serveur en fonction de ce qu'on s'attend à recevoir
     """
-    amount_received = 0
-    amount_expected = len(response)
+    donnee_recu = 0
+    donnee_attendu= len(reponse)
     
-    msg = str()
-    while amount_received < amount_expected:
+    message = str()
+    while donnee_recu < donnee_attendu:
         data = client.recv(16)
-        amount_received += len(data)
-        msg += data.decode("utf-8")
-        #print(msg)
-    return msg
+        donnee_recu+= len(data)
+        message += data.decode("utf-8")
+    return message
 
-"""
-#initiate connection
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-#server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN 
-client.connect(('10.10.42.231', 2222))
-print(f"Connected to server!")
-
-client.settimeout(5) #limit each communication time to 5s
-
-#listening to server command
-print("Client is now waiting for server's command.")
-cmd_from_server = wait_for_acknowledge(client,"Start sending image.")
-
-#send an ACK 
-imgCount_from_server = 0
-if cmd_from_server == "Start sending image.":
-    print("Command \"Start sending image.\" received.")
-    print("Sending ACK...")
-    client.sendall(bytes("ACK","utf-8"))
-    try:
-        print("Client is now waiting for the number of images.")
-        imgCount_from_server = int(wait_for_acknowledge(client,str(3)))  
-        
-    except:
-        raise ValueError("Number of images received is buggy.")
-
-if imgCount_from_server > 0:
-    print("Number of images to receive: ",imgCount_from_server)
-    print("Sending ACK...")
-    client.sendall(bytes("ACK","utf-8"))
-
-print(f"Client is now eceiving {imgCount_from_server} images.")
-
-
-
-for i in range(imgCount_from_server):
-    index = i+1
-    file = f"APP_projet_python_V2\\images\\poussin{index}.jpg"
-    try:                                            #check for existing file, will overwrite
-        f = open(file, "x")           
-        f.close()
-    except:
-        pass
-    finally:
-        f = open(file, "wb")
-    print(f"\tReceiving image {index}")
-    imgsize = int(wait_for_acknowledge(client,str(3)))
-    print(f"\tImage size of {imgsize}B received by Client")
-    print("Sending ACK...")
-    client.sendall(bytes("ACK","utf-8"))  
-    buff = client.recv(imgsize)
-    while buff :
-        f.write(buff)
-        buff = client.recv(imgsize)
-    f.close()
-    print(f"File {file} received!")
-    #print("Sending ACK...")
-    #client.sendall(bytes("ACK","utf-8"))
-    #a = wait_for_acknowledge(client,"This is done.")
-
-print("All images received.")
-print("Closing connection.")
-client.close()
-"""
 
 def recoit_image_serveur():
-    #initiate connection
+    #on essaye de se connecter sur le port ouver par le serveur
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    #server_addr = (socket.gethostname(), 2019)  #change here for sending to another machine in LAN 
     client.connect(('10.10.42.231', 2222))
-    print(f"Connected to server!")
+    print(f"Client connecté au serveur")
 
-    client.settimeout(5) #limit each communication time to 5s
+    client.settimeout(5) 
 
     cmd=str(2).encode('utf-8')
     client.sendall(cmd)
 
-    #listening to server command
-    print("Client is now waiting for server's command.")
-    cmd_from_server = wait_for_acknowledge(client,"Start sending image.")
 
-    #send an ACK 
-    imgCount_from_server = 0
-    if cmd_from_server == "Start sending image.":
-        print("Command \"Start sending image.\" received.")
-        print("Sending ACK...")
-        client.sendall(bytes("ACK","utf-8"))
-        try:
-            print("Client is now waiting for the number of images.")
-            imgCount_from_server = int(wait_for_acknowledge(client,str(3)))  
-        
-        except:
-            raise ValueError("Number of images received is buggy.")
+    print("Le client attend maintenant la commande du serveur")
+    cmd_from_server = wait_for_acknowledge(client,"debut transfer image")
 
-    if imgCount_from_server > 0:
-        print("Number of images to receive: ",imgCount_from_server)
-        print("Sending ACK...")
+
+    if cmd_from_server == "debut transfer image":
+        print("commande recu du serveur : \"debut transfer image\"")
+        print("ACK...")
         client.sendall(bytes("ACK","utf-8"))
 
-    print(f"Client is now eceiving {imgCount_from_server} images.")
+    print(f"Le client s'apprête maintenant à recevoir l'image du serveur")
 
-    for i in range(imgCount_from_server):
-        index = i+1
-        file = f"APP_projet_python_V2\\images\\poussin{index}.jpg"
-        try:                                            #check for existing file, will overwrite
-            f = open(file, "x")           
-            f.close()
-        except:
-            pass
-        finally:
-            f = open(file, "wb")
-        print(f"\tReceiving image {index}")
-        imgsize = int(wait_for_acknowledge(client,str(3)))
-        print(f"\tImage size of {imgsize}B received by Client")
-        print("Sending ACK...")
-        client.sendall(bytes("ACK","utf-8"))  
-        buff = client.recv(imgsize)
-        while buff :
-            f.write(buff)
-            buff = client.recv(imgsize)
+
+    file = f"APP_projet_python_V2\\images\\poussin1.jpg" #emplacement où on veux que soit sauvegarder l'image
+    try: #On essaye de crée le fichier de l'image
+        f = open(file, "x")           
         f.close()
-        print(f"File {file} received!")
-        #print("Sending ACK...")
-        #client.sendall(bytes("ACK","utf-8"))
-        #a = wait_for_acknowledge(client,"This is done.")
+    except:#si sa ne marche pas c'est que image déjà crée, on passe à la suite
+        pass
+    finally: #on vient remplacer ce qu'il y a sur le fichier par notre nouvelle image en provenance du serveur
+        f = open(file, "wb")
+    print(f"\treception de l'image")
+    #très important : on veux savoir de quel taille sera l'image recu
+    imgsize = int(wait_for_acknowledge(client,str(3)))
+    print(f"\tune image de {imgsize}B vas être reçu par le client")
+    print("ACK...")
+    client.sendall(bytes("ACK","utf-8"))  
+    buff = client.recv(imgsize)
+    #On vient recevoir la capacité maximal de recv() puis on met les données dans l'image.
+    #On fait sa jusqu'à être arriver au bout de l'image dont on connait déjà la taille 
+    while buff :
+        f.write(buff)
+        buff = client.recv(imgsize)
+    f.close()
+    print(f"Image reçu !")
 
-    print("All images received.")
-    print("Closing connection.")
+    print("Fermeture de la connection client/serveur")
     client.close()
