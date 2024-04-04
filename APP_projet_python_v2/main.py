@@ -15,8 +15,6 @@ from client_temperature import recoit_temperature_serveur
 home= os.getcwd()
 instance_ia=IA_detect_poussin()
 
-#instance_ia.predict_image('poussin1.jpg')
-
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
