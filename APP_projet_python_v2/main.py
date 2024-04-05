@@ -287,6 +287,8 @@ class App(customtkinter.CTk):
 
 
     def change_image_notif(self):
+        #on vient suprimer les images de l'onglet notif pour les remplacer par des nouvelles.
+        #Comme la caméra ne marche pas encore, l'ongler n'affiche que des placeholder, mais cela est ammner à changer
         self.enclot_RGB.destroy()
         self.enclot_thermique.destroy()
 
@@ -318,7 +320,7 @@ class App(customtkinter.CTk):
         
 
     def change_image_direct(self):
-        
+        #on vient suprimer les images de l'onglet temp réel pour les remplacer par des nouvelles. (à savoir les nouvelles images en direct)
         self.image_direct.destroy()
         self.image_direct_therm.destroy()
 
