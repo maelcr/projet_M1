@@ -296,10 +296,12 @@ class App(customtkinter.CTk):
             abs_file_path2 = os.path.join(script_dir, 'img_save\\placeholder2.jpg')
 
             try:
-                self.placholder1_1 = Image.open(abs_file_path1)
-                self.placholder1_2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
+                
+                #self.placholder1_1 = Image.open(abs_file_path1)
+                #self.placholder1_2= ImageTk.PhotoImage(self.image_derniere_RGB1.resize((450,370)))
                 self.enclot_RGB = customtkinter.CTkLabel(self.tab_notif, text="", image=self.placholder1_2)
                 self.enclot_RGB.pack(pady=10)
+                
         
             except :
                 print("probleme transfer image")
