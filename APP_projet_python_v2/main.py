@@ -320,7 +320,8 @@ class App(customtkinter.CTk):
         
 
     def change_image_direct(self):
-        #on vient suprimer les images de l'onglet temp réel pour les remplacer par des nouvelles. (à savoir les nouvelles images en direct)
+        #on vient suprimer les images de l'onglet temp réel pour les remplacer par des nouvelles. 
+        #En provenance du serveur (à savoir les nouvelles images en direct)
         self.image_direct.destroy()
         self.image_direct_therm.destroy()
 
