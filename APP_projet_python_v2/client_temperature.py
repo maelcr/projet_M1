@@ -8,7 +8,7 @@ def recoit_temperature_serveur():
     client.connect(('10.10.42.231', 2222))
     print(f"Connected to server!")
 
-    client.settimeout(5) 
+    client.settimeout(2) 
 
     cmd=str(1).encode('utf-8')
     client.sendall(cmd)

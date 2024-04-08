@@ -252,7 +252,11 @@ class App(customtkinter.CTk):
     #et d'apeller l'IA et d'autres programmes
     def reinit_variable(self):
 
-        recoit_temperature_serveur()
+        try :
+            recoit_temperature_serveur()
+        except:
+            print("Le client n'a pas pus se connecter au serveur pour avoir la temperature")
+            time.sleep(5)
         #degree_enclot
         # va permettre de lire le fichier degree.txt, stoquant la température de l'enclot, et l'afficher
         i = lire_fichier_txt("save/degree.txt") + " degrée" #apelle lire_fichier_txt qui retourneras la valeurs inscrite dans le fichier degree.txt

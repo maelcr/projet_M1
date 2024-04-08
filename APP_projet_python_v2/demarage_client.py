@@ -22,7 +22,7 @@ def recoit_image_serveur():
     client.connect(('10.10.42.231', 2222))
     print(f"Client connecté au serveur")
 
-    client.settimeout(5) 
+    client.settimeout(2) 
 
     cmd=str(2).encode('utf-8')
     client.sendall(cmd)
