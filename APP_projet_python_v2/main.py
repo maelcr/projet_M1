@@ -196,9 +196,9 @@ class App(customtkinter.CTk):
             value_chauffage = lire_fichier_txt("save/chauffage_activation.txt") #lis l'état enregistrée du checkbox chauffage_activation
             value_ouvert = lire_fichier_txt("save/enclot_ouvert.txt") #lis l'état enregistrée du checkbox enclot_ouvert
             if (value_chauffage=="0" and value_ouvert=="0"): #va apeller test_check_degree() avec différents paramètres en fonction des checkbox.
-                value_final = self.test_check_degree("20","30")
+                value_final = self.test_check_degree("25","35")
             elif (value_chauffage=="1" and value_ouvert=="0"):
-                value_final = self.test_check_degree("25","30")
+                value_final = self.test_check_degree("30","32")
             else:
                 value_final = "fenetre ouverte"
             
