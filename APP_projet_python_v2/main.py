@@ -143,7 +143,7 @@ class App(customtkinter.CTk):
         self.textbox = customtkinter.CTkTextbox(self.tab_info, width=500)#création d'un textbox avec CTkTextbox (un stoquage de txt scrollable)
         self.textbox.configure(state = NORMAL) #on démare l'écriture
         #le texte qu'il y as dans le document, ( \n sert à passer une ligne )
-        self.textbox.insert('end','Prototype caméra détection animaux morts par voie infra-rouge \n Projet M1 2024 par Maël CREISMEAS, Ambroise COURTIN \n Participant : ISEN Yncrea Ouest Brest, Yann MOALIC \n Brewen MOREAU, Dylan TEXIER \n \n Programme réalisée en language python \n Interface graphique réalisé avec TKinter et CustomTKinter \n Modèle IA réalisé avec YOLO V8 \n Dispositif contenant: Rapsberry Pi 4 modèle B 2Go') 
+        self.textbox.insert('end','Prototype caméra détection animaux morts par voie infra-rouge \n Projet M1 2024 par Maël CREISMEAS, Ambroise COURTIN \n Participant : ISEN Yncrea Ouest Brest, Yann MOALIC \n Brewen MOREAU, Dylan TEXIER \n \n Programme réalisée en language python \n Interface graphique réalisé avec TKinter et CustomTKinter \n Modèle IA réalisé avec YOLO V8 \n Dispositif contenant: Rapsberry Pi 4 modèle B 2Go \n caméra Raspberry Pi v2.1_MP 1080p \n caméra thermique FLIR Lepton 3.1 \n Micro SD 16gb') 
         self.textbox.configure(state=DISABLED) #on stop l'écriture
         self.textbox.pack(pady=30, padx=20) #affichage textbox
 
