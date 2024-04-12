@@ -140,9 +140,10 @@ class App(customtkinter.CTk):
         self.le_label.pack(pady=10)#affiche image
 
         # create textbox
-        self.textbox = customtkinter.CTkTextbox(self.tab_info)#création d'un textbox avec CTkTextbox (un stoquage de txt scrollable)
+        self.textbox = customtkinter.CTkTextbox(self.tab_info, width=500)#création d'un textbox avec CTkTextbox (un stoquage de txt scrollable)
         self.textbox.configure(state = NORMAL) #on démare l'écriture
-        self.textbox.insert('end','tesg \n retour a la ligne \n trop bi1') #le texte qu'il y as dans le document, ( \n sert à passer une ligne )
+        #le texte qu'il y as dans le document, ( \n sert à passer une ligne )
+        self.textbox.insert('end','Prototype caméra détection animaux morts par voie infra-rouge \n Projet M1 2024 par Maël CREISMEAS, Ambroise COURTIN \n Participant : ISEN Yncrea Ouest Brest, Yann MOALIC \n Brewen MOREAU, Dylan TEXIER \n \n Programme réalisée en language python \n Interface graphique réalisé avec TKinter et CustomTKinter \n Modèle IA réalisé avec YOLO V8 \n Dispositif contenant: Rapsberry Pi 4 modèle B 2Go') 
         self.textbox.configure(state=DISABLED) #on stop l'écriture
         self.textbox.pack(pady=30, padx=20) #affichage textbox
 
@@ -189,9 +190,8 @@ class App(customtkinter.CTk):
             return "bonne temperature" #retourne "bonne temperature"
 
 
-    #va apeller 
-        
-        
+    #va lire la température et appeller test_check_degree(). les paramètres mises dans test_check_degree vont changer par rapport aux différents
+    #paramètres choisit par l'utilisateur. il va ensuite retourner la réponse à affiche sous format char.
     def temperature_dangerosite(self):
             value_chauffage = lire_fichier_txt("save/chauffage_activation.txt") #lis l'état enregistrée du checkbox chauffage_activation
             value_ouvert = lire_fichier_txt("save/enclot_ouvert.txt") #lis l'état enregistrée du checkbox enclot_ouvert
