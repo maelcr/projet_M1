@@ -27,7 +27,7 @@ class IA_detect_poussin():
             #prediction (quel créera même si l'image ne donne aucun résultat) pour éviter tout probleme lors de la prochaine prédiction de l'IA
             try :
                 #Code de yoloV8 pour effectuer une prédiction sur une image :
-                self.model.predict(abs_file_path, save=True, save_txt=True, imgsz=800, conf=0.2, show_labels=False, show_conf=False)
+                self.model.predict(abs_file_path, save=True, save_txt=True, imgsz=800, conf=0.3, show_labels=False, show_conf=False)
 
                 #On vient copier l'image de prédiction dans le dossier aproprier
                 path='..\\runs\\detect\\predict\\'+file_name
